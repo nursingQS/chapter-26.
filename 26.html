@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 26 · Vascular & Peripheral Circulation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #2c4a3f, #1d332b);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            background: #ecf5f0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 40px rgba(20, 55, 40, 0.5);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d6a4f, #1a4d39);
+            color: white;
+            padding: 20px 30px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+            border-bottom: 5px solid #95d5b2;
+            box-shadow: 0 8px 15px #143523;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 1.9rem;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1::before {
+            content: "🩸";
+            font-size: 2.3rem;
+            filter: drop-shadow(0 0 4px #b7efd9);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .counter {
+            background: #1f4d3b;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            min-width: 110px;
+            text-align: center;
+            backdrop-filter: blur(3px);
+            border: 2px solid #a8e6cf;
+            color: #ecfff4;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #d0e6da;
+            flex-shrink: 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #409f7a, #1e6b4c);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 12px #3cb37a;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 30px;
+            background: #e2f0e8;
+        }
+
+        .question-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: white;
+            border-radius: 32px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(30, 70, 50, 0.2);
+            border: 2px solid #b7e0cd;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            background: linear-gradient(145deg, #348b6a, #1e6048);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            border: 3px solid #a2e0c2;
+            box-shadow: 0 7px 0 #1c462f;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #17432f;
+            flex-grow: 1;
+            font-weight: 600;
+            padding-right: 15px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            padding: 20px 22px;
+            border: 3px solid #d0ecd9;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.15rem;
+            box-shadow: 0 5px 12px rgba(33, 94, 63, 0.08);
+        }
+
+        .option:hover {
+            background: #f0fbf4;
+            border-color: #3f9e78;
+            transform: translateY(-3px);
+            box-shadow: 0 18px 25px rgba(46, 125, 80, 0.15);
+        }
+
+        .option-letter {
+            background: linear-gradient(145deg, #3d8d6d, #286747);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+            font-size: 1.3rem;
+            border: 2px solid #bbf0d5;
+        }
+
+        .option.correct {
+            background: linear-gradient(145deg, #c6e6d4, #b2dec6);
+            border-color: #2b7a56;
+            color: #1b4f32;
+        }
+        .option.correct .option-letter {
+            background: #1f7a51;
+            border-color: #b7f0d4;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(145deg, #fad7d2, #fecbc3);
+            border-color: #b14242;
+            color: #631e1e;
+        }
+        .option.incorrect .option-letter {
+            background: #b84545;
+            border-color: #f5b7b7;
+        }
+
+        .feedback-area {
+            flex-shrink: 0;
+        }
+
+        .feedback {
+            padding: 25px;
+            border-radius: 20px;
+            display: none;
+            align-items: center;
+            gap: 20px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            animation: slideIn 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(145deg, #daf0da, #c8e6c8);
+            border: 3px solid #2e7d5a;
+            color: #1b4d2b;
+            display: flex;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(145deg, #ffdedb, #fecbc7);
+            border: 3px solid #bb3b3b;
+            color: #632020;
+            display: flex;
+        }
+
+        .feedback-icon {
+            font-size: 2rem;
+        }
+
+        .rationale {
+            background: linear-gradient(145deg, #e4f4ea, #d4eee0);
+            border: 3px solid #3f8d6f;
+            border-radius: 20px;
+            padding: 25px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .rationale.show {
+            display: block;
+        }
+        .rationale h4 {
+            color: #1f6b49;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+        }
+        .rationale p {
+            color: #1d4a31;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 35px;
+            background: #cae9db;
+            border-top: 3px solid #a1cfb9;
+            flex-shrink: 0;
+            height: 85px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 16px 42px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            box-shadow: 0 6px 0 #1f4f38;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #3e896a, #276249);
+            color: white;
+            border: 2px solid #b1e6cf;
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #1d4936, 0 8px 20px #368f66;
+        }
+        .btn-secondary {
+            background: linear-gradient(145deg, #3a735d, #23513f);
+            color: white;
+            border: 2px solid #bae5d2;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #1a3f30, 0 8px 20px #316e55;
+        }
+        .btn-cancel {
+            background: linear-gradient(145deg, #c27f7f, #aa4a4a);
+            color: white;
+            display: none;
+            border: 2px solid #f3baba;
+        }
+        .btn-cancel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 0 #632d2d;
+        }
+        .btn-cancel.show {
+            display: flex;
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 4px 0 #214f39;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 700px) {
+            .question-text { font-size: 1.2rem; }
+            .option { font-size: 1rem; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-content">
+            <h1>Chapter 26: Vascular Disorders & Peripheral Circulation</h1>
+            <div class="subtitle">39 questions · PAD · venous insufficiency · lymphangitis · ulcers</div>
+        </div>
+        <div class="counter" id="counter">1/39</div>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="main-content">
+        <div class="question-area">
+            <div class="question-header">
+                <div class="question-number" id="questionNumber">1</div>
+                <div class="question-text" id="question"></div>
+            </div>
+            
+            <div class="options-container" id="options"></div>
+        </div>
+        
+        <div class="feedback-area">
+            <div class="feedback" id="feedback">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div id="feedbackText"></div>
+            </div>
+            <div class="rationale" id="rationale">
+                <h4>📘 VASCULAR RATIONALE:</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">⬅️ PREV</button>
+        <div class="nav-buttons">
+            <button class="btn btn-cancel" id="cancelBtn" onclick="cancelSelection()">✖️ CANCEL</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextCard()">NEXT ➡️</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ----- Chapter 26 exact questions (39 items) -----
+    const questions = [
+        { //1
+            id: 1,
+            question: "The nurse is taking a health history of a new client who reports pain in the left lower leg and foot when walking. This pain is relieved with rest, and the nurse observes that the left lower leg is slightly edematous and is hairless. When planning this client's care, the nurse should most likely address which health problem?",
+            options: [
+                "A. Coronary artery disease (CAD)",
+                "B. Intermittent claudication",
+                "C. Arterial embolus",
+                "D. Raynaud disease"
+            ],
+            correct: 1, // B
+            rationale: "Intermittent claudication: muscular pain reproduced with exercise, relieved by rest, caused by inadequate blood flow. (PTS:1 REF:p.822)"
+        },
+        { //2
+            id: 2,
+            question: "While assessing a client, the nurse notes that the client's ankle-brachial index (ABI) of the right leg is 0.40. How should the nurse best follow up this assessment finding?",
+            options: [
+                "A. Assess the client's use of over-the-counter dietary supplements.",
+                "B. Implement interventions relevant to arterial narrowing.",
+                "C. Encourage the client to increase intake of foods high in vitamin K.",
+                "D. Adjust the client's activity level to accommodate decreased coronary output."
+            ],
+            correct: 1, // B
+            rationale: "ABI <1.0 suggests arterial narrowing/stenosis. Interventions for arterial insufficiency needed. (PTS:1 REF:p.824)"
+        },
+        { //3
+            id: 3,
+            question: "The nurse is admitting a 32-year-old woman to the presurgical unit. The nurse learns during the admission assessment that the client takes oral contraceptives. The nurse's postoperative plan of care should include what intervention?",
+            options: [
+                "A. Early ambulation and leg exercises",
+                "B. Cessation of the oral contraceptives until 3 weeks' postoperative",
+                "C. Doppler ultrasound of peripheral circulation twice daily",
+                "D. Dependent positioning of the client's extremities when at rest"
+            ],
+            correct: 0, // A
+            rationale: "Oral contraceptives increase coagulability; early ambulation/leg exercises reduce VTE risk. (PTS:1 REF:p.847)"
+        },
+        { //4
+            id: 4,
+            question: "A nurse is creating an education plan for a client with venous insufficiency. Which measure should the nurse include in the plan?",
+            options: [
+                "A. Avoid normal stockings that are tight.",
+                "B. Limit activities, including walking.",
+                "C. Sleep with legs below heart level.",
+                "D. Refrain from using graduated compression stockings."
+            ],
+            correct: 0, // A
+            rationale: "Avoid tight socks; encourage walking; elevate legs; use compression stockings. (PTS:1 REF:p.853)"
+        },
+        { //5
+            id: 5,
+            question: "The nurse is caring for a client with a large venous leg ulcer. What intervention should the nurse implement to promote healing and prevent infection?",
+            options: [
+                "A. Provide a high-calorie, high-protein diet.",
+                "B. Apply a clean occlusive dressing once daily and whenever soiled.",
+                "C. Abstain from wearing graduated compression stockings.",
+                "D. Apply an antibiotic ointment on the surrounding skin with each dressing change."
+            ],
+            correct: 0, // A
+            rationale: "Wound healing requires high-calorie, high-protein diet. Occlusive dressings not used; compression indicated for venous ulcers. (PTS:1 REF:p.858)"
+        },
+        { //6
+            id: 6,
+            question: "The nurse is caring for a client who is seeking care for signs and symptoms of lymphedema. The nurse's plan of care should prioritize which nursing diagnosis?",
+            options: [
+                "A. Risk for infection related to lower extremity swelling secondary to lymphedema",
+                "B. Disturbed body image related to lower extremity swelling secondary to lymphedema",
+                "C. Ineffective health maintenance related to lower extremity swelling secondary to lymphedema",
+                "D. Risk for deficient fluid volume related to lower extremity swelling secondary to lymphedema"
+            ],
+            correct: 0, // A
+            rationale: "Lymphedema causes lymph accumulation → significant infection risk. Body image important but infection is physiologic priority. (PTS:1 REF:p.861)"
+        },
+        { //7
+            id: 7,
+            question: "An occupational health nurse is providing an educational event and has been asked by an administrative worker about the risk of varicose veins. Which action should the nurse suggest as a preventive measure for varicose veins?",
+            options: [
+                "A. Sit with crossed legs for a few minutes each hour to promote relaxation.",
+                "B. Walk for several minutes every hour to promote circulation.",
+                "C. Elevate the legs when tired.",
+                "D. Wear snug-fitting ankle socks to decrease edema."
+            ],
+            correct: 1, // B
+            rationale: "Walking promotes venous return. Crossing legs impedes; elevation passive; tight ankle socks worsen stasis. (PTS:1 REF:p.859)"
+        },
+        { //8
+            id: 8,
+            question: "A client comes to the walk-in clinic with reports of pain in the foot following stepping on a roofing nail 4 days ago. The client has a visible red streak running up his foot and ankle. Which health problem should the nurse suspect?",
+            options: [
+                "A. Cellulitis",
+                "B. Local inflammation",
+                "C. Elephantiasis",
+                "D. Lymphangitis"
+            ],
+            correct: 3, // D
+            rationale: "Lymphangitis: red streaks from infected wound outline lymphatic channels. (PTS:1 REF:p.861)"
+        },
+        { //9
+            id: 9,
+            question: "The triage nurse in the emergency department is assessing a client who reports pain and swelling in the right lower leg. The client's pain became much worse last night and appeared along with fever, chills, and sweating. The client states, 'I hit my leg on the car door 4 or 5 days ago, and it has been sore ever since.' The client has a history of chronic venous insufficiency. Which intervention should the nurse anticipate for this client?",
+            options: [
+                "A. Platelet transfusion to treat thrombocytopenia",
+                "B. Warfarin to treat arterial insufficiency",
+                "C. Antibiotics to treat cellulitis",
+                "D. Intravenous heparin to treat venous thromboembolism (VTE)"
+            ],
+            correct: 2, // C
+            rationale: "Signs/symptoms suggest cellulitis (infection after trauma, fever, chills). Antibiotics needed. (PTS:1 REF:p.861)"
+        },
+        { //10
+            id: 10,
+            question: "A nurse in a long-term care facility is caring for an 83-year-old client who has a history of heart failure (HF) and peripheral arterial disease (PAD). At present, the client is unable to stand or ambulate. The nurse should implement measures to prevent which complication?",
+            options: [
+                "A. Aortitis",
+                "B. Deep vein thrombosis",
+                "C. Thoracic aortic aneurysm",
+                "D. Raynaud disease"
+            ],
+            correct: 1, // B
+            rationale: "Immobility + PAD + HF = Virchow triad → high DVT risk. (PTS:1 REF:p.846)"
+        },
+        { //11
+            id: 11,
+            question: "A nurse has written a plan of care for a client diagnosed with peripheral arterial insufficiency. One of the nursing diagnoses in the care plan is altered peripheral tissue perfusion related to compromised circulation. Which intervention is the most appropriate for this diagnosis?",
+            options: [
+                "A. Elevate the legs and arms above the heart when resting.",
+                "B. Encourage the client to engage in a moderate amount of exercise.",
+                "C. Encourage extended periods of sitting or standing.",
+                "D. Discourage walking in order to limit pain."
+            ],
+            correct: 1, // B
+            rationale: "Exercise (walking) promotes collateral circulation. Elevation not helpful; sitting/standing worsens; walking encouraged despite pain. (PTS:1 REF:p.830)"
+        },
+        { //12
+            id: 12,
+            question: "The nurse is planning care for a client with venous insufficiency. Which nursing intervention would be appropriate for this client's plan of care?",
+            options: [
+                "A. Elevate lower extremities.",
+                "B. Educate on decreased protein.",
+                "C. Apply compression only at night.",
+                "D. Teach frequent rest periods due to pain."
+            ],
+            correct: 0, // A
+            rationale: "Elevation promotes venous return. Protein should be increased, compression worn daily, pain not typical in venous insufficiency. (PTS:1 REF:p.853)"
+        },
+        { //13
+            id: 13,
+            question: "A nurse in the rehabilitation unit is caring for an older adult client who is in cardiac rehabilitation following an MI. The nurse's plan of care calls for the client to walk for 10 minutes 3 times a day. The client questions the relationship between walking and heart function. How should the nurse best reply?",
+            options: [
+                "A. 'The arteries in your legs constrict when you walk and allow the blood to move faster and with more pressure on the tissue.'",
+                "B. 'Walking increases your heart rate and blood pressure. Therefore, your heart is under less stress.'",
+                "C. 'Walking helps your heart adjust to your new arteries and helps build your self-esteem.'",
+                "D. 'When you walk, the muscles in your legs contract and pump the blood in your veins back toward your heart, which allows more blood to return to your heart.'"
+            ],
+            correct: 3, // D
+            rationale: "Leg muscle contraction pumps venous blood toward heart (venous return). (PTS:1 REF:p.819)"
+        },
+        { //14
+            id: 14,
+            question: "The nurse is preparing to administer warfarin to a client with deep vein thrombophlebitis. Which laboratory value would most clearly indicate that the client's warfarin is at therapeutic levels?",
+            options: [
+                "A. Partial thromboplastin time (PTT) within normal reference range",
+                "B. Prothrombin time (PT) 8 to 10 times the control",
+                "C. International normalized ratio (INR) between 2 and 3",
+                "D. Hematocrit of 32%"
+            ],
+            correct: 2, // C
+            rationale: "Warfarin therapeutic INR = 2–3. PT 1.5–2x control; PTT for heparin. (PTS:1 REF:p.848)"
+        },
+        { //15
+            id: 15,
+            question: "The clinic nurse is caring for a 57-year-old client who reports experiencing leg pain whenever walking several blocks. The client has type 1 diabetes and has smoked a pack of cigarettes every day for the past 40 years. The health care provider diagnoses intermittent claudication. The nurse should provide which instruction about long-term care to the client?",
+            options: [
+                "A. 'Be sure to practice meticulous foot care.'",
+                "B. 'Consider cutting down on your smoking.'",
+                "C. 'Reduce your activity level to accommodate your limitations.'",
+                "D. 'Try to make sure you eat enough protein.'"
+            ],
+            correct: 0, // A
+            rationale: "PAD + diabetes → meticulous foot care essential. Smoking must stop completely, walking encouraged, protein not primary. (PTS:1 REF:p.832)"
+        },
+        { //16
+            id: 16,
+            question: "A client who has undergone a femoral to popliteal bypass graft surgery returns to the surgical unit. Which assessments should the nurse perform during the first postoperative day?",
+            options: [
+                "A. Assess pulse of affected extremity every 15 minutes at first.",
+                "B. Palpate the affected leg for pain during every assessment.",
+                "C. Assess the client for signs and symptoms of compartment syndrome every 2 hours.",
+                "D. Perform Doppler evaluation once daily."
+            ],
+            correct: 0, // A
+            rationale: "Post-op: pulse checks q15min initially, then lengthen intervals. Doppler q2h; compartment syndrome not typical post bypass. (PTS:1 REF:p.836)"
+        },
+        { //17
+            id: 17,
+            question: "The nurse is caring for a client who is diagnosed with Raynaud phenomenon. The nurse should plan interventions to address which nursing diagnosis?",
+            options: [
+                "A. Chronic pain",
+                "B. Ineffective tissue perfusion",
+                "C. Impaired skin integrity",
+                "D. Risk for injury"
+            ],
+            correct: 1, // B
+            rationale: "Raynaud = vasospasm → ineffective peripheral tissue perfusion. Pain intermittent, skin integrity usually intact. (PTS:1 REF:p.844)"
+        },
+        { //18
+            id: 18,
+            question: "A client presents to the clinic reporting the inability to grasp objects with the right hand. The client's right arm is cool and has a difference in blood pressure of more than 20 mm Hg compared with the left arm. The nurse should expect that the primary provider may diagnose the client with which health problem?",
+            options: [
+                "A. Lymphedema",
+                "B. Raynaud phenomenon",
+                "C. Upper extremity arterial occlusive disease",
+                "D. Upper extremity venous thromboembolism (VTE)"
+            ],
+            correct: 2, // C
+            rationale: "Upper extremity arterial disease: arm fatigue, coolness, BP difference >20 mmHg. (PTS:1 REF:p.833)"
+        },
+        { //19
+            id: 19,
+            question: "A nurse working in a long-term care facility is performing the admission assessment of a newly admitted 85-year-old resident. During inspection of the resident's feet, the nurse notes early evidence of gangrene on one of the resident's great toes. The nurse should assess for further evidence of which health problem?",
+            options: [
+                "A. Chronic venous insufficiency",
+                "B. Raynaud phenomenon",
+                "C. Venous thromboembolism (VTE)",
+                "D. Peripheral artery disease (PAD)"
+            ],
+            correct: 3, // D
+            rationale: "In inactive older adults, gangrene may be first sign of PAD. (PTS:1 REF:p.835)"
+        },
+        { //20
+            id: 20,
+            question: "The nurse is caring for an acutely ill client who is on a factor Xa inhibitor. The client has a comorbidity of renal insufficiency. How will this client's renal status affect this anticoagulant therapy?",
+            options: [
+                "A. The factor Xa inhibitor is contraindicated in the treatment of this client.",
+                "B. The factor Xa inhibitor may be given subcutaneously, but not intravenously (IV).",
+                "C. Lower doses of factor Xa inhibitor are required for this client.",
+                "D. Warfarin will be substituted for the factor Xa inhibitor."
+            ],
+            correct: 2, // C
+            rationale: "Renal insufficiency → lower doses of factor Xa inhibitors (not contraindicated). (PTS:1 REF:p.848)"
+        },
+        { //21
+            id: 21,
+            question: "The nurse is assessing a woman who is pregnant at 27 weeks' gestation. The client is concerned about the recent emergence of varicose veins on the backs of her calves. What is the nurse's best action?",
+            options: [
+                "A. Facilitate a referral to a vascular surgeon.",
+                "B. Assess the client's ankle-brachial index (ABI) and perform Doppler ultrasound testing.",
+                "C. Encourage the client to increase her activity level.",
+                "D. Teach the client that circulatory changes during pregnancy frequently cause varicose veins."
+            ],
+            correct: 3, // D
+            rationale: "Pregnancy causes varicosities due to hormonal, pressure, volume changes; usually benign. (PTS:1 REF:p.858)"
+        },
+        { //22
+            id: 22,
+            question: "Graduated compression stockings have been prescribed to treat a client's venous insufficiency. What education should the nurse prioritize when introducing this intervention to the client?",
+            options: [
+                "A. The need to take anticoagulants concurrent with using compression stockings",
+                "B. The need to wear the stockings on a 'one day on, one day off' schedule",
+                "C. The importance of wearing the stockings around the clock to ensure maximum benefit",
+                "D. The importance of ensuring the stockings are applied evenly with no pressure points"
+            ],
+            correct: 3, // D
+            rationale: "Even application prevents tourniquet effect. Removed at night, daily use, anticoagulants not always needed. (PTS:1 REF:p.853)"
+        },
+        { //23
+            id: 23,
+            question: "The nurse caring for a client with a leg ulcer has finished assessing the client and is developing a problem list prior to writing a plan of care. What priority risk would the care plan address?",
+            options: [
+                "A. Disuse syndrome",
+                "B. Ineffective health maintenance",
+                "C. Sedentary lifestyle",
+                "D. Insufficient nutrition"
+            ],
+            correct: 3, // D
+            rationale: "Leg ulcers increase metabolic demand; nutrition risk priority for healing. (PTS:1 REF:p.858)"
+        },
+        { //24
+            id: 24,
+            question: "How should the nurse best position a client who has leg ulcers that are venous in origin?",
+            options: [
+                "A. Keep the client's legs flat and straight.",
+                "B. Keep the client's knees bent to a 45-degree angle and supported with pillows.",
+                "C. Elevate the client's lower extremities.",
+                "D. Dangle the client's legs over the side of the bed."
+            ],
+            correct: 2, // C
+            rationale: "Venous ulcers: elevate lower extremities to reduce dependent edema. (PTS:1 REF:p.857)"
+        },
+        { //25
+            id: 25,
+            question: "A client with advanced venous insufficiency is confined to bed rest following orthopedic surgery. How can the nurse best prevent skin breakdown in the client's lower extremities?",
+            options: [
+                "A. Ensure that the client's heels are protected and supported.",
+                "B. Closely monitor the client's serum albumin and prealbumin levels.",
+                "C. Perform gentle massage of the client's lower legs, as tolerated.",
+                "D. Perform passive range-of-motion exercises once per shift."
+            ],
+            correct: 0, // A
+            rationale: "Heels vulnerable; pressure relief prevents breakdown. Labs important but not direct prevention. (PTS:1 REF:p.857)"
+        },
+        { //26
+            id: 26,
+            question: "The nurse has performed a thorough nursing assessment of the care of a client with chronic leg ulcers. The nurse's assessment should include which of the following components? Select all that apply.",
+            options: [
+                "A. Location and type of pain",
+                "B. Apical heart rate",
+                "C. Bilateral comparison of peripheral pulses",
+                "D. Comparison of temperature in the client's legs",
+                "E. Identification of mobility limitations"
+            ],
+            correct: [0,2,3,4], // A,C,D,E
+            rationale: "Assess pain, pulses, temperature comparison, mobility. Apical rate not directly indicated. (PTS:1 REF:p.857)"
+        },
+        { //27
+            id: 27,
+            question: "A nurse on a medical unit is caring for a client who has been diagnosed with lymphangitis. When reviewing this client's medication administration record, the nurse should anticipate which type of medication?",
+            options: [
+                "A. An anticoagulant",
+                "B. A diuretic",
+                "C. An antibiotic",
+                "D. An antiplatelet aggregator"
+            ],
+            correct: 2, // C
+            rationale: "Lymphangitis = acute inflammation of lymphatic channels due to infection → antibiotics. (PTS:1 REF:p.861)"
+        },
+        { //28
+            id: 28,
+            question: "A postsurgical client has illuminated the call light to inform the nurse of a sudden onset of lower leg pain. On inspection, the nurse observes that the client's left leg is visibly swollen and reddened. Which action by the nurse would be most appropriate?",
+            options: [
+                "A. Administer a PRN dose of subcutaneous heparin.",
+                "B. Inform the health care provider that the client has signs and symptoms of venous thromboembolism (VTE).",
+                "C. Mobilize the client promptly to dislodge any thrombi in the client's lower leg.",
+                "D. Massage the client's lower leg to temporarily restore venous return."
+            ],
+            correct: 1, // B
+            rationale: "Sudden swelling, pain, redness → possible DVT; notify provider immediately. Do not massage/mobilize (risk of embolization). (PTS:1 REF:p.847)"
+        },
+        { //29
+            id: 29,
+            question: "A nurse is closely monitoring a client who has recently been diagnosed with an abdominal aortic aneurysm. What assessment finding would signal an impending rupture of the client's aneurysm?",
+            options: [
+                "A. Sudden increase in blood pressure and a decrease in heart rate",
+                "B. Cessation of pulsating in an aneurysm that has previously been pulsating visibly",
+                "C. Sudden onset of severe back or abdominal pain",
+                "D. New onset of hemoptysis"
+            ],
+            correct: 2, // C
+            rationale: "Severe back/abdominal pain signals impending rupture. (PTS:1 REF:p.842)"
+        },
+        { //30
+            id: 30,
+            question: "A nurse is reviewing the physiologic factors that affect a client's cardiovascular health and tissue oxygenation. What is the systemic arteriovenous oxygen difference?",
+            options: [
+                "A. The average amount of oxygen removed by each organ in the body",
+                "B. The amount of oxygen removed from the blood by the heart",
+                "C. The amount of oxygen returning to the lungs via the pulmonary artery",
+                "D. The amount of oxygen in aortic blood minus the amount of oxygen in the vena caval blood"
+            ],
+            correct: 3, // D
+            rationale: "Systemic arteriovenous O2 difference = aortic O2 content – vena caval O2 content. (PTS:1 REF:p.819)"
+        },
+        { //31
+            id: 31,
+            question: "The nurse is evaluating a client's diagnosis of arterial insufficiency with reference to the adequacy of the client's blood flow. On what physiologic variables does adequate blood flow depend? Select all that apply.",
+            options: [
+                "A. Efficiency of heart as a pump",
+                "B. Adequacy of circulating blood volume",
+                "C. Ratio of platelets to red blood cells",
+                "D. Size of red blood cells",
+                "E. Patency and responsiveness of the blood vessels"
+            ],
+            correct: [0,1,4], // A,B,E
+            rationale: "Blood flow depends on heart pump, blood volume, vessel patency. Not primarily on platelet/RBC ratio or RBC size. (PTS:1 REF:p.818)"
+        },
+        { //32
+            id: 32,
+            question: "A nurse is assessing a new client who is diagnosed with peripheral artery disease. The nurse cannot feel the pulse in the client's left foot. How should the nurse proceed with assessment?",
+            options: [
+                "A. Have the primary care provider prescribe a computed tomography (CT) scan.",
+                "B. Apply a tourniquet for 3 to 5 minutes and then reassess.",
+                "C. Elevate the extremity and attempt to palpate the pulses.",
+                "D. Use Doppler ultrasound to identify the pulses."
+            ],
+            correct: 3, // D
+            rationale: "When pulses nonpalpable, use hand-held Doppler to insonate blood flow. (PTS:1 REF:p.824)"
+        },
+        { //33
+            id: 33,
+            question: "A medical nurse has admitted four clients over the course of a 12-hour shift. For which client would assessment of ankle-brachial index (ABI) be most clearly warranted?",
+            options: [
+                "A. A client who has peripheral edema secondary to chronic heart failure",
+                "B. An older adult client who has a diagnosis of unstable angina",
+                "C. A client with poorly controlled type 1 diabetes who is a smoker",
+                "D. A client who has community-acquired pneumonia and a history of COPD"
+            ],
+            correct: 2, // C
+            rationale: "ABI indicated for age ≥50 with diabetes or smoking history. (PTS:1 REF:p.824)"
+        },
+        { //34
+            id: 34,
+            question: "An older adult client has been treated for a venous ulcer and a plan is in place to prevent the occurrence of future ulcers. What should the nurse include in this plan?",
+            options: [
+                "A. Use of supplementary oxygen to aid tissue oxygenation",
+                "B. Daily use of normal saline compresses on the lower limbs",
+                "C. Daily administration of prophylactic antibiotics",
+                "D. A high-protein diet that is rich in vitamins"
+            ],
+            correct: 3, // D
+            rationale: "High-protein, vitamin-rich diet promotes healing and prevents recurrence. (PTS:1 REF:p.858)"
+        },
+        { //35
+            id: 35,
+            question: "A 79-year-old client is admitted to the medical unit with digital gangrene. The client reports that the problem first began when the client stubbed the toe going to the bathroom in the dark. In addition to this trauma, the nurse should suspect that the client has a history of which health problem?",
+            options: [
+                "A. Raynaud phenomenon",
+                "B. Coronary artery disease (CAD)",
+                "C. Arterial insufficiency",
+                "D. Varicose veins"
+            ],
+            correct: 2, // C
+            rationale: "Digital gangrene often due to arterial insufficiency + minor trauma. (PTS:1 REF:p.857)"
+        },
+        { //36
+            id: 36,
+            question: "When assessing venous disease in a client's lower extremities, the nurse knows that what test will most likely be prescribed?",
+            options: [
+                "A. Duplex ultrasonography",
+                "B. Echocardiography",
+                "C. Positron emission tomography (PET)",
+                "D. Radiography"
+            ],
+            correct: 0, // A
+            rationale: "Duplex ultrasound visualizes venous structure and flow. (PTS:1 REF:p.825)"
+        },
+        { //37
+            id: 37,
+            question: "The nurse is providing care for a client who has just been diagnosed with peripheral arterial occlusive disease (PAD). What assessment finding is most consistent with this diagnosis?",
+            options: [
+                "A. Numbness and tingling in the distal extremities",
+                "B. Unequal peripheral pulses between extremities",
+                "C. Visible clubbing of the fingers and toes",
+                "D. Reddened extremities with muscle atrophy"
+            ],
+            correct: 1, // B
+            rationale: "PAD often presents with unequal pulses, cooler/paler affected leg. (PTS:1 REF:p.835)"
+        },
+        { //38
+            id: 38,
+            question: "A nurse is admitting a client to the medical unit who has a history of peripheral artery disease (PAD). While providing the health history, the client reports smoking about two packs of cigarettes a day, having a history of alcohol abuse, and not exercising. Which topic would be the priority health education for this client?",
+            options: [
+                "A. The lack of exercise, which is the main cause of PAD",
+                "B. The likelihood that heavy alcohol intake is a significant risk factor for PAD",
+                "C. The nicotine in cigarettes, which is a powerful vasoconstrictor and may cause or aggravate PAD",
+                "D. Alcohol, which suppresses the immune system, creates high glucose levels, and may cause PAD"
+            ],
+            correct: 2, // C
+            rationale: "Nicotine powerfully vasoconstricts; smoking cessation priority in PAD. (PTS:1 REF:p.828)"
+        },
+        { //39
+            id: 39,
+            question: "The nurse is caring for a client who is admitted to the medical unit for the treatment of a venous ulcer in the area of the lateral malleolus that has been unresponsive to treatment. Which finding is the nurse most likely to identify during an assessment of this client's wound?",
+            options: [
+                "A. Hemorrhage",
+                "B. Heavy exudate",
+                "C. Deep wound bed",
+                "D. Pale-colored wound bed"
+            ],
+            correct: 1, // B
+            rationale: "Venous ulcers (gaiter area) are superficial, large, highly exudative. (PTS:1 REF:p.856)"
+        }
+    ];
+
+    // ----- identical navigation/selection logic as template -----
+    let currentQuestion = 0;
+    let selectedOption = null;
+    let answers = Array(questions.length).fill(null);
+
+    function loadQuestion() {
+        const q = questions[currentQuestion];
+        if (!q) return;
+
+        const progress = ((currentQuestion + 1) / questions.length) * 100;
+        document.getElementById('progressBar').style.width = `${progress}%`;
+        document.getElementById('counter').textContent = `${currentQuestion + 1}/${questions.length}`;
+        document.getElementById('questionNumber').textContent = q.id;
+
+        document.getElementById('question').innerHTML = q.question;
+        loadOptions(q);
+
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('rationale').classList.remove('show');
+        document.getElementById('cancelBtn').classList.remove('show');
+
+        document.getElementById('prevBtn').disabled = currentQuestion === 0;
+        const stored = answers[currentQuestion];
+        document.getElementById('nextBtn').disabled = stored === null || stored === undefined;
+        document.getElementById('nextBtn').textContent = currentQuestion >= questions.length - 1 ? 'FINISH ➡️' : 'NEXT ➡️';
+    }
+
+    function loadOptions(q) {
+        const container = document.getElementById('options');
+        container.innerHTML = '';
+        q.options.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerHTML = `<div class="option-letter">${String.fromCharCode(65 + idx)}</div><div>${opt}</div>`;
+            div.onclick = () => selectOption(idx);
+            container.appendChild(div);
+        });
+
+        const saved = answers[currentQuestion];
+        if (saved !== null && saved !== undefined) {
+            selectOption(saved, true);
+        }
+    }
+
+    function selectOption(index, fromMemory = false) {
+        const q = questions[currentQuestion];
+        if (!fromMemory && selectedOption !== null) return;
+
+        if (!fromMemory) {
+            selectedOption = index;
+            answers[currentQuestion] = index;
+        }
+
+        highlightSelected(index, q);
+        showFeedback(index, q);
+        document.getElementById('nextBtn').disabled = false;
+        document.getElementById('cancelBtn').classList.add('show');
+    }
+
+    function highlightSelected(index, q) {
+        const opts = document.querySelectorAll('.option');
+        opts.forEach((opt, i) => opt.classList.remove('correct', 'incorrect'));
+
+        const correctIndices = Array.isArray(q.correct) ? q.correct : [q.correct];
+        if (Array.isArray(q.correct)) {
+            correctIndices.forEach(ci => opts[ci]?.classList.add('correct'));
+            if (!correctIndices.includes(index)) {
+                opts[index]?.classList.add('incorrect');
+            }
+        } else {
+            if (index === q.correct) {
+                opts[index].classList.add('correct');
+            } else {
+                opts[index].classList.add('incorrect');
+                opts[q.correct].classList.add('correct');
+            }
+        }
+    }
+
+    function showFeedback(index, q) {
+        const fb = document.getElementById('feedback');
+        const icon = document.getElementById('feedbackIcon');
+        const text = document.getElementById('feedbackText');
+        const rationaleDiv = document.getElementById('rationale');
+        const rationaleP = document.getElementById('rationaleText');
+
+        const correctIndices = Array.isArray(q.correct) ? q.correct : [q.correct];
+        const isCorrect = correctIndices.includes(index);
+
+        if (isCorrect) {
+            fb.className = 'feedback correct';
+            icon.textContent = '✅';
+            text.textContent = 'CORRECT!';
+        } else {
+            fb.className = 'feedback incorrect';
+            icon.textContent = '❌';
+            const letters = correctIndices.map(c => String.fromCharCode(65 + c)).join(', ');
+            text.textContent = `INCORRECT. Correct answer(s): ${letters}`;
+        }
+
+        fb.style.display = 'flex';
+        rationaleP.innerHTML = q.rationale;
+        rationaleDiv.classList.add('show');
+    }
+
+    function cancelSelection() {
+        const q = questions[currentQuestion];
+        selectedOption = null;
+        answers[currentQuestion] = null;
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('rationale').classList.remove('show');
+        document.getElementById('cancelBtn').classList.remove('show');
+        document.getElementById('nextBtn').disabled = true;
+    }
+
+    function nextCard() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            selectedOption = null;
+            loadQuestion();
+        } else {
+            currentQuestion = 0;
+            loadQuestion();
+        }
+    }
+
+    function previousCard() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            const q = questions[currentQuestion];
+            selectedOption = answers[currentQuestion];
+            loadQuestion();
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key >= '1' && e.key <= '4') selectOption(parseInt(e.key)-1);
+        else if (e.key >= 'a' && e.key <= 'd') selectOption(e.key.charCodeAt(0)-97);
+        else if (e.key >= 'A' && e.key <= 'D') selectOption(e.key.charCodeAt(0)-65);
+        else if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) previousCard();
+        else if (e.key === 'ArrowRight' && !document.getElementById('nextBtn').disabled) nextCard();
+        else if (e.key === 'Escape' && document.getElementById('cancelBtn').classList.contains('show')) cancelSelection();
+    });
+
+    loadQuestion();
+</script>
+</body>
+</html>
